@@ -7,6 +7,7 @@ public class AppTest {
     @Test
     public void testFactorial() {
         assertEquals(120, App.factorial(5));
+        // sửa 120 thành 0 để gây lỗi
         assertEquals(1, App.factorial(0));
     }
 }
