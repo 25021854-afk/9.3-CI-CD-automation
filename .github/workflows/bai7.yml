@@ -1,0 +1,40 @@
+name: Automated Code Review
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'Bai9.7/**'
+
+jobs:
+  checkstyle-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Chạy checkstyle và xuất file kết quả XML
+      - name: Run Checkstyle
+        working-directory: Bai9.7
+        run: |
+          mvn checkstyle:checkstyle -Dcheckstyle.config.location=google_checks.xml
+        continue-on-error: true # Quan trọng: Để step sau vẫn chạy được khi có lỗi code
+
+      # Đây là bước Bot sẽ đọc file XML và đi comment dạo
+      - name: Post Inline Feedback
+        uses: dbelyaev/action-checkstyle@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          checkstyle_config: google_checks.xml
+          workdir: Bai9.7
+          level: error
