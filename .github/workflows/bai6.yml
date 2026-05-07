@@ -24,4 +24,4 @@ jobs:
 
       - name: Build with Maven
         # Chạy lệnh trong thư mục bai6 để tránh ảnh hưởng các bài khác
-        run: mvn -B package --file bai6/pom.xml
+        run: mvn -B package --file Bai9.6/pom.xml
