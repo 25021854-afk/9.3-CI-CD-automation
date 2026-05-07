@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'Bai9.5 jacoco/**'
-      - '.github/workflows/bai9.5_week7.yml'
+      - '.github/workflows/bai5.yml'
 
 jobs:
   coverage-check:
